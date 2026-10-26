@@ -1,0 +1,29 @@
+cargo-features = ["panic-immediate-abort"]
+
+[package]
+name = "aion-7z"
+version = "0.1.0"
+edition = "2024"
+license = "MIT"
+
+[package.metadata.winresource]
+FileDescription = "7-Zip plugin for reading Aion .pak archives with automatic XML and HTML decoding"
+ProductName = "7-Zip Aion CryPak Plugin"
+
+[lib]
+name = "aion_pak"
+crate-type = ["cdylib", "rlib"]
+
+[dependencies]
+crc32fast = { version = "1.5.3", default-features = false }
+windows = { version ="0.62.2", features = ["Win32_Globalization"] }
+zune-inflate = "0.2.54"
+
+[build-dependencies]
+winresource = "0.1.34"
+
+[profile.release]
+strip = true
+lto = "fat"
+codegen-units = 1
+panic = "immediate-abort"
